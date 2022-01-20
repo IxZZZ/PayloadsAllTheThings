@@ -51,13 +51,13 @@ def RANDOM_TEXT_SPEC():
 	min_char = 12
 	max_char = 16
 	chars = string.ascii_letters + string.digits + "!$%^&*()<>;:,.|\~`"
-	return "".join(choice(chars) for x in range(randint(min_char, max_char)))
+	return "".join(choice(chars) for _ in range(randint(min_char, max_char)))
 
 def RANDOM_TEXT():
 	min_char = 12
 	max_char = 16
 	chars = string.ascii_letters + string.digits
-	return "".join(choice(chars) for x in range(randint(min_char, max_char)))
+	return "".join(choice(chars) for _ in range(randint(min_char, max_char)))
 
 def DECIMAL_SINGLE(NUMBER,STEP):
 	return int(NUMBER)*(256**STEP)
@@ -95,20 +95,24 @@ def plain2EnclosedAlphanumericsChar(s0):
 def convertIP2EnclosedAlphanumericsValue():
 	IPAddressParts4EnclosedAlphanumerics = arg1.split(".")
 	returnEnclosedAlphanumericsIPAddress = ""
-	for x in range(0,4):
+	for x in range(4):
 		if len(IPAddressParts4EnclosedAlphanumerics[x]) == 3 and (int(IPAddressParts4EnclosedAlphanumerics[x][0]+IPAddressParts4EnclosedAlphanumerics[x][1])) <= 20 and (int(IPAddressParts4EnclosedAlphanumerics[x][0]+IPAddressParts4EnclosedAlphanumerics[x][1]+IPAddressParts4EnclosedAlphanumerics[x][2])) >= 10:
-			returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar(IPAddressParts4EnclosedAlphanumerics[x][0]+IPAddressParts4EnclosedAlphanumerics[x][1]);
-			returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar(IPAddressParts4EnclosedAlphanumerics[x][2]);
-			if x <= 2:
-				returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar('.');
+			returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar(
+			    IPAddressParts4EnclosedAlphanumerics[x][0] +
+			    IPAddressParts4EnclosedAlphanumerics[x][1]);
+			returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar(
+			    IPAddressParts4EnclosedAlphanumerics[x][2]);
 		else:
-			returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar(IPAddressParts4EnclosedAlphanumerics[x][0]);
+			returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar(
+			    IPAddressParts4EnclosedAlphanumerics[x][0]);
 			if len(IPAddressParts4EnclosedAlphanumerics[x]) >= 2:
-				returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar(IPAddressParts4EnclosedAlphanumerics[x][1]);
+				returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar(
+				    IPAddressParts4EnclosedAlphanumerics[x][1]);
 			if len(IPAddressParts4EnclosedAlphanumerics[x]) == 3:
-				returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar(IPAddressParts4EnclosedAlphanumerics[x][2]);
-			if x <= 2:
-				returnEnclosedAlphanumericsIPAddress = returnEnclosedAlphanumericsIPAddress + plain2EnclosedAlphanumericsChar('.');
+				returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar(
+				    IPAddressParts4EnclosedAlphanumerics[x][2]);
+		if x <= 2:
+			returnEnclosedAlphanumericsIPAddress += plain2EnclosedAlphanumericsChar('.');
 	return returnEnclosedAlphanumericsIPAddress
 
 def convert(s, recurse_chunks=True, error_on_miss=False):
