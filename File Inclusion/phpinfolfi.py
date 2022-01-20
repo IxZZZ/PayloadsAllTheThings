@@ -163,9 +163,12 @@ def main():
     print("Spawning worker pool (%d)..." % poolsz)
     sys.stdout.flush()
 
-    tp = []
-    for i in range(0,poolsz):
-        tp.append(ThreadWorker(e,l,maxattempts, host, port, reqphp, offset, reqlfi, tag))
+    tp = [
+        ThreadWorker(
+            e, l, maxattempts, host, port, reqphp, offset, reqlfi, tag
+        )
+        for _ in range(poolsz)
+    ]
 
     for t in tp:
         t.start()
